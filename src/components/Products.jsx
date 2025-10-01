@@ -2,12 +2,17 @@
 import { Button, Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Product.css"
+import { addToCart } from "../redux/cartSlice";
+import  {useDispatch} from "react-redux"
 
 function Products({ products, setCartItem }) {
 
   // const [cartitem,setcartitem]=useState(0);
+   const dispatch = useDispatch();
   function handleincrement() {
-    setCartItem((pre) => pre + 1);
+    // setCartItem((pre) => pre + 1);
+    dispatch(addToCart(products));
+    
 
   }
   return (

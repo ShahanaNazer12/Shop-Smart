@@ -4,8 +4,8 @@ import "./Header.css"
 import { FaShoppingBag } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-function Header({cartitem}) {
-  const cartItems = useSelector((state)=> state.cartItems)
+function Header() {
+  const {cartItems} = useSelector((state)=> state.cartItems)
   console.log(cartItems)
 
   return(
@@ -36,7 +36,7 @@ function Header({cartitem}) {
             {/* <Nav.Link as={Link} to="/">Cart {cartitem}</Nav.Link> */}
              <Nav.Link as={Link} to="/cart" className=" position-relative"><FaShoppingBag size={20}/> 
              <span className="pos">
-              {cartitem }
+              {cartItems.length }
              </span>
              </Nav.Link>
             <Nav.Link as={Link} to="/Contact">Contact</Nav.Link>
