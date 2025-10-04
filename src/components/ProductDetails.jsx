@@ -2,12 +2,13 @@ import { Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 import "./Product.css"
+import { useSelector } from "react-redux";
 
-function ProductDetails({products}){
+function ProductDetails(){
    
     console.log("products------>",products);
    
-
+const products = useSelector((state)=>state.products.products)
     const { _id } = useParams();
     const product = products.find((pr)=>pr.id == _id)
 

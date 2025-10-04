@@ -5,7 +5,7 @@ import "./Product.css"
 import { addToCart } from "../redux/cartSlice";
 import  {useDispatch} from "react-redux"
 
-function Products({ products, setCartItem }) {
+function Products({ products }) {
 
   // const [cartitem,setcartitem]=useState(0);
    const dispatch = useDispatch();
