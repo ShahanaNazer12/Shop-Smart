@@ -12,17 +12,17 @@ import { useEffect, useState } from 'react';
 import Cart from './components/Cart';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProduct } from './redux/productSlice';
+import Register from './components/Register';
+// import Logiin from './components/Logiin';
+import { ToastContainer } from 'react-toastify';
+
+import Logiin from './components/Logiin';
+import LoginNew from './components/LoginNew';
 function App() {
   const dispatch = useDispatch()
    const products = useSelector((state)=>(state.products.products))
 
-  // useEffect(()=>{
-  //   fetch('https://fakestoreapi.com/products')
-  // .then(response => response.json())
-  // .then(data => setProducts(data))
-  // .catch((err)=>console.log(err));
-
-  // },[])
+ 
 
   useEffect(() => {
   fetch("https://fakestoreapi.com/products")
@@ -36,19 +36,24 @@ function App() {
 
 
   
-  console.log(products)
+  // console.log(products)
   
   return(
   
     
     <BrowserRouter >
     <Header  />
+    <ToastContainer position="top-right" autoClose={2000}/>
     <Routes>
     <Route path='/' element={<Home   />}/>  
     <Route path='/products/:_id' element={<ProductDetails/>}/>    
     <Route path='/contacts' element={<Contact/>}/>
     <Route path='/about' element={<About/>} />
     <Route path='/cart' element={<Cart/>}/>
+    {/* <Route path='/login' element={<Logiin/>}/> */}
+    <Route path='/loginnew' element={<LoginNew/>}/>
+    
+     <Route path='/register' element={<Register/>}/>
     
     </Routes>
     <Footer/>

@@ -4,3 +4,14 @@
 .del{
     color: brown;
 }
+.btt{
+    width:25px;
+}
+.input{
+    width:30px;
+    border:0px;  
+    height: 20px; 
+}
+.input:focus-visible {
+    outline: 0px; 
+}

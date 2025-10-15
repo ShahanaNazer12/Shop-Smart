@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 
 function Header() {
   const {cartItems} = useSelector((state)=> state.cartItems)
-<<<<<<< HEAD
+
   console.log(cartItems)
-=======
+
   // console.log(cartItems)
->>>>>>> 2917470 (Your commit message here)
+
 
   return(
    <Navbar expand="lg" className="hdr">
@@ -44,7 +44,7 @@ function Header() {
               {cartItems.length }
              </span>
              </Nav.Link>
-            <Nav.Link as={Link} to="/Contact">Contact</Nav.Link>
+            <Nav.Link as={Link} to="/loginnew">Login</Nav.Link>
             
             {/* <Button className="ms-5" variant="outline-danger">login</Button> */}
             <Nav.Link as={Link} to="/Login"> <Button className="ms-5" variant="outline-light">Logout</Button></Nav.Link>
