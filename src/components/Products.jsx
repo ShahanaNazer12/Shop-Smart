@@ -17,11 +17,11 @@ function Products({ products }) {
       <Card >
         <div className=" p-5">
           <Link to={`/products/${products.id}`}>
-            <Card.Img variant="top" src={products.image} className="product_img" />
+            <Card.Img variant="top" src={products.photo} className="product_img" />
           </Link>
         </div>
         <Card.Body>
-          <Card.Title>{products.title}</Card.Title>
+          <Card.Title>{products.productName}</Card.Title>
           <h6>₹{products.price} </h6>
           <Card.Text>
             {products.description}

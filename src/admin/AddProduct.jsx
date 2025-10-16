@@ -5,26 +5,28 @@ import { useDispatch } from "react-redux";
 import { userRegister } from "../redux/authSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { addProduct } from "../redux/productSlice";
 
 
-function Register() {
+function AddProduct() {
    const { Formik } = formik;
 
    const navigate = useNavigate()
 
    const schema = yup.object().shape({
-    firstName: yup.string().required("please enter your name").min(2,"must have 2 characters"),
-    email: yup.string().required("pls enter email").email("pls enter valid email"),
-    password: yup.string().required("pls enter password"),
+    productName: yup.string().required("please enter product name").min(2,"must have 2 characters"),
+    description: yup.string().required("pls enter description"),
+    price: yup.number().required("pls enter price"),
+    photo: yup.string().required("pls add photto"),
     
   });
 
-  function submit(values) {
+  function handleAddProduct(values) {
      values.id = Date.now()
-    dispatch(userRegister(values))
+    dispatch(addProduct(values))
    
-    toast.success("user register successfully")
-    navigate("/loginnew")
+    toast.success(" product added successfully")
+    navigate("/")
    
   }
   const dispatch = useDispatch()
@@ -35,16 +37,17 @@ function Register() {
         <Col md={6}>
           <Row>
             <Col className="mt-3 mb-3">
-              <h2>Register</h2>
+              <h2>Add Product</h2>
             </Col>
           </Row>
         <Formik
         validationSchema={schema}
-      onSubmit={submit}
+      onSubmit={handleAddProduct}
       initialValues={{
-         firstName: '',
-         email: '',
-         password: '',
+         productName: '',
+         description: '',
+         price: '',
+         photo:''
        
       }}
         >
@@ -54,16 +57,16 @@ function Register() {
 
                <Row>
               <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                <Form.Label>Full Name</Form.Label>
-                <Form.Control placeholder="full name" name="firstName"
+                <Form.Label>productName</Form.Label>
+                <Form.Control placeholder="productName " name="productName"
                 onChange={handleChange}
-                value={values.firstName}
-                 isValid={touched.firstName && !errors.firstName}
-                 isInvalid={!!errors.firstName}
+                value={values.productName}
+                 isValid={touched.productName && !errors.productName}
+                 isInvalid={!!errors.productName}
                 
                 />
                 <Form.Control.Feedback type="invalid">
-                {errors.firstName}
+                {errors.productName}
               </Form.Control.Feedback>
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
@@ -71,15 +74,15 @@ function Register() {
             </Row>
             <Row>
               <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" name="email"
+                <Form.Label>Description</Form.Label>
+                <Form.Control as="textarea" rows={5} placeholder="description" name="description"
                  onChange={handleChange}
-                value={values.email}
-                 isValid={touched.email && !errors.email}
-                 isInvalid={!!errors.email}
+                value={values.description}
+                 isValid={touched.description && !errors.description}
+                 isInvalid={!!errors.description}
                 />
                  <Form.Control.Feedback type="invalid">
-                {errors.email}
+                {errors.description}
               </Form.Control.Feedback>
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 
@@ -89,15 +92,30 @@ function Register() {
 
             <Row>
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" name="password"
+                <Form.Label>Price</Form.Label>
+                <Form.Control type="text" placeholder="price" name="price"
                  onChange={handleChange}
-                value={values.password}
-                 isValid={touched.password && !errors.password}
-                 isInvalid={!!errors.password}
+                value={values.price}
+                 isValid={touched.price && !errors.price}
+                 isInvalid={!!errors.price}
                 />
                  <Form.Control.Feedback type="invalid">
-                {errors.password}
+                {errors.price}
+              </Form.Control.Feedback>
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+             <Row>
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label>Photo</Form.Label>
+                <Form.Control type="text" placeholder="photo" name="photo"
+                 onChange={handleChange}
+                value={values.photo}
+                 isValid={touched.photo && !errors.photo}
+                 isInvalid={!!errors.photo}
+                />
+                 <Form.Control.Feedback type="invalid">
+                {errors.photo}
               </Form.Control.Feedback>
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
@@ -108,7 +126,7 @@ function Register() {
 
             {/* <Button onClick={submit} variant="primary" type="submit"> */}
              <Button  variant="primary" type="submit">
-              Register
+              AddProduct
             </Button>
           </Form>
           )}
@@ -119,4 +137,4 @@ function Register() {
   )
 }
 
-export default Register
+export default AddProduct

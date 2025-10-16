@@ -1,59 +1,60 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import "./Header.css"
-import { FaShoppingBag } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import "./Header.css";
+import { FaRegUserCircle, FaShoppingBag } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "../redux/authSlice";
+import { toast } from "react-toastify";
 
 function Header() {
-  const {cartItems} = useSelector((state)=> state.cartItems)
+  const { cartItems } = useSelector((state) => state.cartItems);
+  const { isAuthenticate } = useSelector((state) => state.auth);
 
-  console.log(cartItems)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // console.log(cartItems)
+  function handleLogout() {
+    dispatch(userLogout());
+    navigate("/loginnew");
+    toast.success("logged succesflyy")
+  }
 
-
-  return(
-   <Navbar expand="lg" className="hdr">
+  return (
+    <Navbar expand="lg" className="hdr">
       <Container>
         <Navbar.Brand as={Link} to="/">SHOPPING-CART</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link}  to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/Contacts">Contact</Nav.Link>
             <Nav.Link as={Link} to="/products">Product</Nav.Link>
             <Nav.Link as={Link} to="/about">About</Nav.Link>
-             {/* <Nav.Link as={Link} to="/cart">Cart</Nav.Link> */}
-{/*             
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
           </Nav>
-          <Nav className="ms-auto   ">
-            {/* <Nav.Link as={Link} to="/">Cart {cartitem}</Nav.Link> */}
-             <Nav.Link as={Link} to="/cart" className=" position-relative"><FaShoppingBag size={20}/> 
-             <span className="pos">
-              {cartItems.length }
-             </span>
-             </Nav.Link>
-            <Nav.Link as={Link} to="/loginnew">Login</Nav.Link>
-            
-            {/* <Button className="ms-5" variant="outline-danger">login</Button> */}
-            <Nav.Link as={Link} to="/Login"> <Button className="ms-5" variant="outline-light">Logout</Button></Nav.Link>
 
-            </Nav>
+          <Nav className="ms-auto">
+            <Nav.Link as={Link} to="/cart" className="position-relative">
+              <FaShoppingBag size={20} />
+              <span className="pos">{cartItems?.length || 0}</span>
+            </Nav.Link>
 
+            {isAuthenticate ? (
+              <NavDropdown title={<FaRegUserCircle size={22} />} id="basic-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/wishlist">Dashboard</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/orders">Orders</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/admin/add-product">Add Product</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Nav.Link as={Link} to="/loginnew">Login</Nav.Link>
+            )}
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
+  );
 }
+
 export default Header;

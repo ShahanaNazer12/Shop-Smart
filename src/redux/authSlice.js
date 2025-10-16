@@ -3,9 +3,9 @@ import { createSlice} from "@reduxjs/toolkit"
 const authSlice = createSlice(
     {
         initialState:{
-            users:JSON.parse(localStorage.getItem("users")) || [],
-            user:null,
-            isAuthenticate:false
+            users: JSON.parse(localStorage.getItem("users")) || [],
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  isAuthenticate: JSON.parse(localStorage.getItem("isAuthenticate")) || false
         },
         name: "authSlice",
         reducers:{
@@ -21,6 +21,13 @@ const authSlice = createSlice(
                  localStorage.setItem("user", JSON.stringify(state.user)) 
                  localStorage.setItem("isAuthenticate", JSON.stringify(state.isAuthenticate))  
                  
+            },
+             userLogout:(state)=>{
+                state.user = null
+                state.isAuthenticate = false
+                 localStorage.setItem("user", JSON.stringify(state.user)) 
+                 localStorage.setItem("isAuthenticate", JSON.stringify(state.isAuthenticate))  
+                 
             }
 
 
@@ -28,7 +35,7 @@ const authSlice = createSlice(
     }
 )
 
-export const {userRegister,userLogin} = authSlice.actions
+export const {userRegister,userLogin,userLogout} = authSlice.actions
 
 
 export default authSlice.reducer

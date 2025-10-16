@@ -98,7 +98,7 @@ function LoginNew() {
 
            
 
-            <Button onClick={submit} variant="primary" type="submit">
+            <Button  variant="primary" type="submit">
             Login
             </Button>
           </Form>

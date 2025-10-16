@@ -61,10 +61,10 @@ function Cart() {
                                         <td>
                                             <div className=" d-flex">
                                                 <div className=" cartii">
-                                                    <Image src={items?.image ?? null} className=" w-100 " />
+                                                    <Image src={items?.photo ?? null} className=" w-100 " />
                                                 </div>
                                                 <div  >
-                                                    <h5 className=" ms-4">{items?.title}</h5>
+                                                    <h5 className=" ms-4">{items?.productName}</h5>
                                                     <h5 className=" ms-4">${items.price}</h5>
                                                 </div>
                                             </div>

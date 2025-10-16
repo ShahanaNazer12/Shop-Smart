@@ -16,31 +16,30 @@ import Register from './components/Register';
 // import Logiin from './components/Logiin';
 import { ToastContainer } from 'react-toastify';
 
-import Logiin from './components/Logiin';
+
 import LoginNew from './components/LoginNew';
+import AddProduct from './admin/addProduct';
+
 function App() {
   const dispatch = useDispatch()
-   const products = useSelector((state)=>(state.products.products))
-
- 
-
-  useEffect(() => {
-  fetch("https://fakestoreapi.com/products")
-    .then((response) => response.json())
-    .then((data) => {
-      dispatch(setProduct(data));
+   const products = useSelector((state)=>(state.products.products));
+//   useEffect(() => {
+//   fetch("https://fakestoreapi.com/products")
+//     .then((response) => response.json())
+//     .then((data) => {
+//       dispatch(setProduct(data));
       
-    })
-    .catch((err) => console.log(err));
-}, [dispatch]);
-
-
-  
+//     })
+//     .catch((err) => console.log(err));
+// }, [dispatch]);
+   
   // console.log(products)
-  
-  return(
-  
-    
+   useEffect(()=>{
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    dispatch(setProduct(products))
+    return()=>{}
+   },[])
+  return( 
     <BrowserRouter >
     <Header  />
     <ToastContainer position="top-right" autoClose={2000}/>
@@ -52,15 +51,13 @@ function App() {
     <Route path='/cart' element={<Cart/>}/>
     {/* <Route path='/login' element={<Logiin/>}/> */}
     <Route path='/loginnew' element={<LoginNew/>}/>
-    
      <Route path='/register' element={<Register/>}/>
+     <Route path='/admin/add-product' element={<AddProduct/>}/>
     
     </Routes>
     <Footer/>
     </BrowserRouter>
-  )
-
-  
+  ) 
 }
 
 export default App

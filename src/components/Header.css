@@ -31,3 +31,10 @@
     font-size: small;
 }
 
+
+.hdr .dropdown-menu[data-bs-popper]{
+    left: auto;
+    right: 0;
+
+}
+
