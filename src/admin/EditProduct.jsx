@@ -1,17 +1,23 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import * as formik from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from "react-redux";
-import { userRegister } from "../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { addProduct } from "../redux/productSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import {  editProduct } from "../redux/productSlice";
 
 
-function AddProduct() {
+function EditProduct() {
    const { Formik } = formik;
 
    const navigate = useNavigate()
+   const {id} = useParams()
+   const {products}= useSelector((state)=>state.products)
+
+   const product =products.find((pr)=>pr.id === Number(id))
+
+   console.log(product)
 
    const schema = yup.object().shape({
     productName: yup.string().required("please enter product name").min(2,"must have 2 characters"),
@@ -21,13 +27,12 @@ function AddProduct() {
     
   });
 
-  function handleAddProduct(values) {
-     values.id = Date.now()
-  
-    dispatch(addProduct(values))
+  function handleEditProduct(values) {
+     values.id = Number (id)
+    dispatch(editProduct(values))
    
-    toast.success(" product added successfully")
-    navigate("/")
+    toast.success(" product edited successfully")
+    navigate("/admin/list-product/")
    
   }
   const dispatch = useDispatch()
@@ -38,17 +43,17 @@ function AddProduct() {
         <Col md={6}>
           <Row>
             <Col className="mt-3 mb-3">
-              <h2>Add Product</h2>
+              <h2>Edit Product</h2>
             </Col>
           </Row>
         <Formik
         validationSchema={schema}
-      onSubmit={handleAddProduct}
+      onSubmit={handleEditProduct}
       initialValues={{
-         productName: '',
-         description: '',
-         price: '',
-         photo:''
+         productName: product.productName,
+         description: product.description,
+         price: product. price,
+         photo:product.photo
        
       }}
         >
@@ -92,7 +97,7 @@ function AddProduct() {
             
 
             <Row>
-              <Form.Group as={Col} controlId="formGridPassword">
+              <Form.Group as={Col} controlId="formGridPassword1">
                 <Form.Label>Price</Form.Label>
                 <Form.Control type="text" placeholder="price" name="price"
                  onChange={handleChange}
@@ -123,11 +128,9 @@ function AddProduct() {
             </Row>
             </Row> 
 
-           
-
             {/* <Button onClick={submit} variant="primary" type="submit"> */}
              <Button  variant="primary" type="submit">
-              AddProduct
+              Edit Product
             </Button>
           </Form>
           )}
@@ -138,4 +141,4 @@ function AddProduct() {
   )
 }
 
-export default AddProduct
+export default EditProduct

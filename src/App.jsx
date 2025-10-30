@@ -19,6 +19,13 @@ import { ToastContainer } from 'react-toastify';
 
 import LoginNew from './components/LoginNew';
 import AddProduct from './admin/addProduct';
+import ProtuctedRoute from './utils/protectedRoute';
+import EditProduct from './admin/EditProduct';
+import ListProduct from './admin/ListProduct';
+import Product from './components/Product';
+import ListUsers from './admin/ListUsers';
+import EditUsers from './admin/EditUsers';
+import Dashboard from './admin/Dashboard';
 
 function App() {
   const dispatch = useDispatch()
@@ -49,10 +56,32 @@ function App() {
     <Route path='/contacts' element={<Contact/>}/>
     <Route path='/about' element={<About/>} />
     <Route path='/cart' element={<Cart/>}/>
+    <Route path='/product' element={<Product/>}/>
     {/* <Route path='/login' element={<Logiin/>}/> */}
     <Route path='/loginnew' element={<LoginNew/>}/>
      <Route path='/register' element={<Register/>}/>
-     <Route path='/admin/add-product' element={<AddProduct/>}/>
+     <Route path='/admin/add-product' element={<ProtuctedRoute requiredrole = {["admin","seller"]}>
+      <AddProduct/>
+     </ProtuctedRoute>}/>
+     <Route path='/admin/editt-product/:id' element={<ProtuctedRoute>
+      <EditProduct/>
+     </ProtuctedRoute>}/>
+      <Route path='/admin/list-product/' element={<ProtuctedRoute requiredrole = {["admin","seller"]}>
+      <ListProduct/>
+     </ProtuctedRoute>}/>
+       <Route path='/admin/list-users/' element={<ProtuctedRoute>
+      <ListUsers/>
+     </ProtuctedRoute>}/>
+     <Route path='/admin/editt-users/:id' element={<ProtuctedRoute>
+      <EditUsers/>
+     </ProtuctedRoute>}/>
+
+     
+      <Route path='/admin/dashboard' element={<ProtuctedRoute>
+      <Dashboard/>
+     </ProtuctedRoute>}/>
+     
+     
     
     </Routes>
     <Footer/>
@@ -61,5 +90,6 @@ function App() {
 }
 
 export default App
+
 
 

@@ -6,3 +6,8 @@
 .product_imag{
     height: 400px;
 }
+.search-icon{
+    position: absolute;
+    right: 14px;
+    bottom: 9px;
+}

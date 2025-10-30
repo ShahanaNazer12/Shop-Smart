@@ -21,6 +21,8 @@ function Register() {
 
   function submit(values) {
      values.id = Date.now()
+        values.role= "user"
+        values.status= true
     dispatch(userRegister(values))
    
     toast.success("user register successfully")
@@ -88,7 +90,7 @@ function Register() {
             
 
             <Row>
-              <Form.Group as={Col} controlId="formGridPassword">
+              <Form.Group as={Col} controlId="formGridPassword1">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" name="password"
                  onChange={handleChange}

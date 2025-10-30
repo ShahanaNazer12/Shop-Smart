@@ -16,7 +16,7 @@ function Header() {
   function handleLogout() {
     dispatch(userLogout());
     navigate("/loginnew");
-    toast.success("logged succesflyy")
+    toast.success("logged succesfully")
   }
 
   return (
@@ -28,7 +28,7 @@ function Header() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/Contacts">Contact</Nav.Link>
-            <Nav.Link as={Link} to="/products">Product</Nav.Link>
+            <Nav.Link as={Link} to="/product">Product</Nav.Link>
             <Nav.Link as={Link} to="/about">About</Nav.Link>
           </Nav>
 
@@ -41,9 +41,11 @@ function Header() {
             {isAuthenticate ? (
               <NavDropdown title={<FaRegUserCircle size={22} />} id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/wishlist">Dashboard</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/admin/dashboard">Dashboard</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/orders">Orders</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/admin/add-product">Add Product</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/admin/list-product">List Product</NavDropdown.Item>
+                 <NavDropdown.Item as={Link} to="/admin/list-users">List Users</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>

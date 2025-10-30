@@ -28,14 +28,53 @@ const authSlice = createSlice(
                  localStorage.setItem("user", JSON.stringify(state.user)) 
                  localStorage.setItem("isAuthenticate", JSON.stringify(state.isAuthenticate))  
                  
+            },
+            updateUserRole:(state,action)=>{
+                const userIndex = state.users.findIndex((u)=>u.id === action.payload.id)
+                if(userIndex !== -1){
+                     state.users[userIndex].role= action.payload.role
+                      localStorage.setItem("users", JSON.stringify(state.users)) 
+                  
+                }
+
+                if(state.user.id === action.payload.id){
+                    state.user.role = action.payload.role
+                     localStorage.setItem("user", JSON.stringify(state.user)) 
+                }
+
+            },
+            editUser:(state,action)=>{
+                const userIndex = state.users.findIndex((usr)=>usr.id === action.payload.id)
+                if(userIndex !== -1){
+                    state.users[userIndex] = action.payload
+                    localStorage.setItem("users", JSON.stringify(state.users)) 
+                }
+                if (state.user && state.user.id === action.payload.id) {
+                state.user = action.payload;
+                localStorage.setItem("user", JSON.stringify(state.user));
             }
+
+            },
+            deleteUser:(state,action)=>{
+                state.users.splice(action.payload,1)
+                 localStorage.setItem("users", JSON.stringify(state.users)) 
+            },
+            updateUserStatus:(state,action)=>{
+                const userIndex = state.users.findIndex((user)=>user.id === action.payload)
+                if(userIndex !== -1){
+                    state.users[userIndex].status = !state.users[userIndex].status
+                     localStorage.setItem("users", JSON.stringify(state.users)) 
+                }
+            }
+            
+
 
 
         }
     }
 )
 
-export const {userRegister,userLogin,userLogout} = authSlice.actions
+export const {userRegister,userLogin,userLogout,updateUserRole,editUser,deleteUser,updateUserStatus} = authSlice.actions
 
 
 export default authSlice.reducer
